@@ -1,7 +1,7 @@
+import { fetchAsDataURL } from './dataurl'
+import { embedResources, shouldEmbed } from './embed-resources'
 import type { Options } from './types'
 import { toArray } from './util'
-import { fetchAsDataURL } from './dataurl'
-import { shouldEmbed, embedResources } from './embed-resources'
 
 interface Metadata {
   url: string
@@ -234,7 +234,11 @@ export async function getWebFontCSS<T extends HTMLElement>(
   const cssTexts = await Promise.all(
     rules
       .filter((rule) =>
-        usedFonts.has(normalizeFontFamily(rule.style.fontFamily)),
+        usedFonts.has(
+          normalizeFontFamily(
+            rule.style.fontFamily || rule.style.getPropertyValue('fontFamily'),
+          ),
+        ),
       )
       .map((rule) => {
         const baseUrl = rule.parentStyleSheet

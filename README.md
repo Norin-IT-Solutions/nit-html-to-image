@@ -19,6 +19,9 @@
 <a href="https://github.com/bubkoo/html-to-image/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-Welcome-brightgreen.svg?style=for-the-badge"></a>
 </p>
 
+## Applied fixes
+Fix(532) from PRs in main repo.
+
 ## Install
 
 ```shell
