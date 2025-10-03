@@ -35,7 +35,7 @@
     "test:debug": "karma start --browsers=Chrome --single-run=false --auto-watch --debug",
     "coveralls": "cat ./test/coverage/lcov.info | coveralls",
     "pretest": "rimraf ./test/coverage",
-    "prepare": "is-ci || husky install .husky"
+    "prepare": "npm run build && (is-ci || husky install .husky)"
   },
   "lint-staged": {
     "**/*.{js,jsx,tsx,ts,less,md,json}": [
