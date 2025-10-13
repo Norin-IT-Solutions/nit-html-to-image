@@ -1,15 +1,15 @@
-import { Options } from './types'
+import { applyStyle } from './apply-style'
 import { cloneNode } from './clone-node'
 import { embedImages } from './embed-images'
-import { applyStyle } from './apply-style'
 import { embedWebFonts, getWebFontCSS } from './embed-webfonts'
+import { Options } from './types'
 import {
+  canvasToBlob,
+  checkCanvasDimensions,
+  createImage,
   getImageSize,
   getPixelRatio,
-  createImage,
-  canvasToBlob,
   nodeToDataURL,
-  checkCanvasDimensions,
 } from './util'
 
 export async function toSvg<T extends HTMLElement>(
@@ -18,7 +18,10 @@ export async function toSvg<T extends HTMLElement>(
 ): Promise<string> {
   const { width, height } = getImageSize(node, options)
   const clonedNode = (await cloneNode(node, options, true)) as HTMLElement
-  await embedWebFonts(clonedNode, options)
+
+  // Might mutate options based on drilldown or not
+  options = await embedWebFonts(clonedNode, options)
+
   await embedImages(clonedNode, options)
   applyStyle(clonedNode, options)
   const datauri = await nodeToDataURL(clonedNode, width, height)

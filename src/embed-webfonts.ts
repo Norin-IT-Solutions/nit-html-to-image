@@ -1,4 +1,5 @@
 import { fetchAsDataURL } from './dataurl'
+import { buildFontEmbedCSS } from './drilldown-webfonts'
 import { embedResources, shouldEmbed } from './embed-resources'
 import type { Options } from './types'
 import { toArray } from './util'
@@ -255,12 +256,16 @@ export async function embedWebFonts<T extends HTMLElement>(
   clonedNode: T,
   options: Options,
 ) {
+  if (options.fontEmbedCSS === 'drilldown') {
+    return options;
+  }
+
   const cssText =
     options.fontEmbedCSS != null
       ? options.fontEmbedCSS
       : options.skipFonts
-      ? null
-      : await getWebFontCSS(clonedNode, options)
+        ? null
+        : await getWebFontCSS(clonedNode, options)
 
   if (cssText) {
     const styleNode = document.createElement('style')
@@ -274,4 +279,18 @@ export async function embedWebFonts<T extends HTMLElement>(
       clonedNode.appendChild(styleNode)
     }
   }
+
+  return options;
+}
+
+export async function drilldownWebFonts<T extends HTMLElement>(
+  clonedNode: T,
+  options: Options,
+) {
+  if (options.fontEmbedCSS !== 'drilldown') {
+    return options;
+  }
+
+  const fontEmbedCSS = await buildFontEmbedCSS(clonedNode);
+  return fontEmbedCSS ? { ...options, fontEmbedCSS } : options;
 }

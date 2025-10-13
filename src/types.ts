@@ -69,19 +69,20 @@ export interface Options {
    * The preferred font format. If specified all other font formats are ignored.
    */
   preferredFontFormat?:
-    | 'woff'
-    | 'woff2'
-    | 'truetype'
-    | 'opentype'
-    | 'embedded-opentype'
-    | 'svg'
-    | string
+  | 'woff'
+  | 'woff2'
+  | 'truetype'
+  | 'opentype'
+  | 'embedded-opentype'
+  | 'svg'
+  | string
   /**
    * A CSS string to specify for font embeds. If specified only this CSS will
    * be present in the resulting image. Use with `getFontEmbedCSS()` to
    * create embed CSS for use across multiple calls to library functions.
+   * Use drilldown to automatically get only the fonts that are used in the html.
    */
-  fontEmbedCSS?: string
+  fontEmbedCSS?: string | 'drilldown'
   /**
    * A boolean to turn off auto scaling for truly massive images..
    */
