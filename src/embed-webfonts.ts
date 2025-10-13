@@ -257,7 +257,7 @@ export async function embedWebFonts<T extends HTMLElement>(
   options: Options,
 ) {
   if (options.fontEmbedCSS === 'drilldown') {
-    return options
+    return await drilldownWebFonts(clonedNode, options);
   }
 
   const cssText =
