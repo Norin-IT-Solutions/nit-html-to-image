@@ -257,7 +257,7 @@ export async function embedWebFonts<T extends HTMLElement>(
   options: Options,
 ) {
   if (options.fontEmbedCSS === 'drilldown') {
-    return options;
+    return options
   }
 
   const cssText =
@@ -280,7 +280,7 @@ export async function embedWebFonts<T extends HTMLElement>(
     }
   }
 
-  return options;
+  return options
 }
 
 export async function drilldownWebFonts<T extends HTMLElement>(
@@ -288,9 +288,9 @@ export async function drilldownWebFonts<T extends HTMLElement>(
   options: Options,
 ) {
   if (options.fontEmbedCSS !== 'drilldown') {
-    return options;
+    return options
   }
 
-  const fontEmbedCSS = await buildFontEmbedCSS(clonedNode);
-  return fontEmbedCSS ? { ...options, fontEmbedCSS } : options;
+  const fontEmbedCSS = await buildFontEmbedCSS(clonedNode)
+  return fontEmbedCSS ? { ...options, fontEmbedCSS } : options
 }
